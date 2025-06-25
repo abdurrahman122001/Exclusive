@@ -123,7 +123,7 @@ export default function SearchBox({ className }) {
 
         {/* Main search dropdown (clean, no shadow) */}
         {showDropdown && (
-          <div className="absolute left-0 top-[60px] w-full bg-white rounded-2xl border border-[#E5E5E5] z-40 py-6 px-6">
+<div className="absolute left-0 top-[60px] w-full bg-white rounded-2xl border border-[#E5E5E5] z-[100] py-6 px-6">
             {/* Most Searched Categories */}
             <div className="font-semibold text-[15px] text-qblack mb-2">
               Most Searched Categories
