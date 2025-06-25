@@ -242,7 +242,7 @@ export default function ProductCardStyleOne({ datas }) {
   };
 
   return (
-    <div className="group relative pb-10 bg-white rounded-lg shadow border border-gray-200 overflow-hidden transition hover:shadow-xl w-full h-[400px] flex flex-col pb-4">
+    <div className="group relative pb-10 bg-white rounded-3xl shadow border border-gray-200 overflow-hidden transition hover:shadow-xl w-full h-[400px] flex flex-col pb-4">
       {/* Discount Badge */}
       {discount && (
         <span className="absolute top-3 left-3 z-10 bg-[#E8413A] text-white text-xs font-semibold rounded px-2 py-1">
@@ -263,7 +263,7 @@ export default function ProductCardStyleOne({ datas }) {
       </button>
 
       {/* Image */}
-      <div className="relative w-full h-[320px] flex items-center justify-center bg-gray-50">
+      <div className="relative w-full h-[320px] flex items-center rounded-full justify-center bg-gray-50">
         <Link
           href={{
             pathname: "/single-product",
