@@ -9,7 +9,7 @@ import Cart from "../../../Cart";
 import SearchBox from "../../../Helpers/SearchBox";
 import languageModel from "../../../../../utils/languageModel";
 import DefaultUser from "../../../../contexts/DefaultUser";
-import { ShoppingCart, UserRound, Heart , Headphones , Headset } from "lucide-react";
+import { ShoppingCart, UserRound, Heart, Headphones, Headset } from "lucide-react";
 
 function AccountDropdown({ defaultImage, user, auth, logout }) {
   const [profileOpen, setProfileOpen] = useState(false);
@@ -65,7 +65,7 @@ function AccountDropdown({ defaultImage, user, auth, logout }) {
         )}
       </button>
       {profileOpen && (
-        <div className="w-[210px] bg-white absolute right-0 top-[60px] z-40 border-t-4 border-qpurple flex flex-col rounded-lg shadow-xl">
+        <div className="w-[210px] bg-white absolute right-0 top-[60px] z-[9999] border-t-4 border-qpurple flex flex-col rounded-lg shadow-xl">
           <div className="p-4">
             <ul className="flex flex-col space-y-4">
               {auth ? (
