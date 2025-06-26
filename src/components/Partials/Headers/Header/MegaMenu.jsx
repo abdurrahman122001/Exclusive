@@ -19,7 +19,6 @@ const PLACEHOLDER_CONTENT = [
   ["Gowns", "Abaya Style Suit"]
 ];
 
-// === CATEGORY BANNER IMAGES (slug -> banners) ===
 const CATEGORY_BANNERS = {
   "salwar-kameez": [
     { src: "https://medias.utsavfashion.com/media/wysiwyg/2023/banner/header-menu/menu-category-banners_salwar.jpg", alt: "Salwar Edit", link: "/products?promo=edit" },
@@ -43,7 +42,7 @@ function getMatchingSubcategory(data, heading) {
   );
 }
 
-export default function MegaMenu({ slug }) {
+export default function MegaMenu({ slug, onMouseEnter, onMouseLeave }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -74,7 +73,6 @@ export default function MegaMenu({ slug }) {
     }));
   };
 
-  // Column count for lines
   const columnCount = COLUMN_ORDER.length;
 
   return (
@@ -89,6 +87,8 @@ export default function MegaMenu({ slug }) {
         alignItems: 'center',
         maxWidth: "98vw"
       }}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       <div className="flex bg-white rounded-2xl shadow-2xl border border-gray-100 py-10 px-10 gap-8 min-h-[355px]">
         {/* Columns */}
@@ -133,7 +133,7 @@ export default function MegaMenu({ slug }) {
             <a href={banner.link} key={idx}>
               <img
                 src={banner.src}
-                onError={e => e.target.src = "https://via.placeholder.com/260x95?text=Banner"}
+                onError={e => (e.target.src = "https://via.placeholder.com/260x95?text=Banner")}
                 alt={banner.alt}
                 className="rounded-lg object-cover w-full h-[95px] shadow"
               />

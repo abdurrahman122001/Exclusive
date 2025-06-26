@@ -12,44 +12,62 @@ export default function Navbar({ className }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSlug, setActiveSlug] = useState(null);
 
+  // Track hover state over nav and mega menu
+  const hoverNav = useRef(false);
+  const hoverMenu = useRef(false);
   const closeTimer = useRef();
 
   useEffect(() => {
     setLangCntnt(languageModel());
   }, []);
 
+  // ---- CATEGORY HOVER HANDLERS ----
   const handleCategoryEnter = (slug) => {
     clearTimeout(closeTimer.current);
+    hoverNav.current = true;
     setActiveSlug(slug);
     setMenuOpen(true);
   };
   const handleCategoryLeave = () => {
+    hoverNav.current = false;
     closeTimer.current = setTimeout(() => {
-      setMenuOpen(false);
-      setActiveSlug(null);
-    }, 120);
+      // Only close if not hovering MegaMenu
+      if (!hoverMenu.current) {
+        setMenuOpen(false);
+        setActiveSlug(null);
+      }
+    }, 100);
   };
 
-  // New: When mouse leaves the whole navbar, close menu
-  const handleNavMouseLeave = () => {
-    closeTimer.current = setTimeout(() => {
-      setMenuOpen(false);
-      setActiveSlug(null);
-    }, 120);
-  };
-
-  // New: When mouse enters the navbar, clear close timer
-  const handleNavMouseEnter = () => {
+  // ---- MEGA MENU HOVER HANDLERS ----
+  const handleMenuEnter = () => {
     clearTimeout(closeTimer.current);
+    hoverMenu.current = true;
+    setMenuOpen(true);
+  };
+  const handleMenuLeave = () => {
+    hoverMenu.current = false;
+    closeTimer.current = setTimeout(() => {
+      if (!hoverNav.current) {
+        setMenuOpen(false);
+        setActiveSlug(null);
+      }
+    }, 100);
+  };
+
+  // For About/Contact
+  const handleNonCategoryEnter = () => {
+    clearTimeout(closeTimer.current);
+    hoverNav.current = false;
+    hoverMenu.current = false;
+    setMenuOpen(false);
+    setActiveSlug(null);
   };
 
   return (
-    // Important: wrap the nav in a relative container
     <div className="relative w-full">
       <nav
         className={`w-full border-b border-gray-200 bg-white sticky top-0 z-40 ${className || ""}`}
-        onMouseLeave={handleNavMouseLeave}
-        onMouseEnter={handleNavMouseEnter}
       >
         <div className="w-full flex justify-center">
           <ul className="flex items-center space-x-7 py-3">
@@ -58,7 +76,7 @@ export default function Navbar({ className }) {
                 key={cat.id}
                 className="relative"
                 onMouseEnter={() => handleCategoryEnter(cat.slug)}
-                onMouseLeave={() => {}} // Don't close menu on li mouseleave, handled by nav wrapper
+                onMouseLeave={handleCategoryLeave}
               >
                 <Link
                   href={{
@@ -77,14 +95,14 @@ export default function Navbar({ className }) {
               </li>
             ))}
             {/* Static About & Contact Us */}
-            <li>
+            <li onMouseEnter={handleNonCategoryEnter}>
               <Link href="/about" passHref>
                 <a className="text-[15px] md:text-lg lg:text-xl font-medium text-qblack px-1 py-1 border-b-2 border-transparent hover:border-qpurple transition-all duration-200">
                   {langCntnt?.About || "About"}
                 </a>
               </Link>
             </li>
-            <li>
+            <li onMouseEnter={handleNonCategoryEnter}>
               <Link href="/contact" passHref>
                 <a className="text-[15px] md:text-lg lg:text-xl font-medium text-qblack px-1 py-1 border-b-2 border-transparent hover:border-qpurple transition-all duration-200">
                   {langCntnt?.Contact_Us || "Contact Us"}
@@ -94,9 +112,13 @@ export default function Navbar({ className }) {
           </ul>
         </div>
       </nav>
-      {/* MegaMenu is always centered under the nav, not under li! */}
+      {/* MegaMenu */}
       {menuOpen && activeSlug && (
-        <MegaMenu slug={activeSlug} onMouseEnter={handleNavMouseEnter} onMouseLeave={handleNavMouseLeave} />
+        <MegaMenu
+          slug={activeSlug}
+          onMouseEnter={handleMenuEnter}
+          onMouseLeave={handleMenuLeave}
+        />
       )}
     </div>
   );
