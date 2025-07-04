@@ -11,14 +11,21 @@ const pwa = process.env.NEXT_PWA_STATUS;
 // Main Next.js config
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: false, // <--- Disabled here
+  swcMinify: false,
   images: {
     domains: [
-      hostname,                // Allow your domain
+      hostname,
       "images.unsplash.com",
       "medias.utsavfashion.com",
-      "upload.wikimedia.org", 
-      "vastravogue.com.au" // ✅ Allow Unsplash images
+      "upload.wikimedia.org",
+      "vastravogue.com.au",
+    ],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'vastravogue.com.au',
+        pathname: '/uploads/**',
+      },
     ],
   },
 };
