@@ -17,7 +17,8 @@ const nextConfig = {
       hostname,                // Allow your domain
       "images.unsplash.com",
       "medias.utsavfashion.com",
-      "upload.wikimedia.org",  // ✅ Allow Unsplash images
+      "upload.wikimedia.org", 
+      "vastravogue.com.au" // ✅ Allow Unsplash images
     ],
   },
 };
